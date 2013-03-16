@@ -53,15 +53,15 @@ def get_cache_library():
     import platform
     name = platform.system()
     if name == 'Darwin':
-        return cdll.LoadLibrary('%s/libcache.dylib' % scriptpath)
+        return cdll.LoadLibrary(os.path.join(scriptpath, 'libcache.dylib')
     elif name == 'Windows':
         if cindex.isWin64:
-            return cdll.LoadLibrary("%s/libcache_x64.dll" % scriptpath)
-        return cdll.LoadLibrary('%s/libcache.dll' % scriptpath)
+            return cdll.LoadLibrary(os.path.join(scriptpath, "libcache_x64.dll"))
+        return cdll.LoadLibrary(os.path.join(scriptpath, "libcache.dll"))
     else:
         try:
             # Try loading with absolute path first
-            return cdll.LoadLibrary('%s/libcache.so' % scriptpath)
+            return cdll.LoadLibrary(os.path.join(scriptpath, "libcache.so"))
         except:
             try:
                 # See if there's one in the system path
@@ -113,7 +113,7 @@ try:
     import json
     _getVersion = cachelib.getVersion
     _getVersion.restype = c_char_p
-    f = open("%s/../package.json" % scriptpath)
+    f = open(os.path.join(scriptpath, "../package.json"))
     data = json.load(f)
     f.close()
     json = data["packages"][0]["platforms"]["*"][0]["version"]
