@@ -53,7 +53,7 @@ def get_cache_library():
     import platform
     name = platform.system()
     if name == 'Darwin':
-        return cdll.LoadLibrary(os.path.join(scriptpath, 'libcache.dylib')
+        return cdll.LoadLibrary(os.path.join(scriptpath, 'libcache.dylib'))
     elif name == 'Windows':
         if cindex.isWin64:
             return cdll.LoadLibrary(os.path.join(scriptpath, "libcache_x64.dll"))

@@ -32,18 +32,19 @@ please see http://www.github.com/quarnster/SublimeClang for more details. """)
 import os
 import sys
 
-try:
+if sys.version_info < (3,):
     import Queue
     from internals.clang import cindex
     from errormarkers import clear_error_marks, add_error_mark, show_error_marks, \
                              update_statusbar, erase_error_marks, clang_error_panel
     from internals.common import get_setting, get_settings, is_supported_language, \
-                                    get_language,get_cpu_count, run_in_main_thread, \
-                                    status_message, sencode, are_we_there_yet, plugin_loaded
+                                 get_language,get_cpu_count, run_in_main_thread, \
+                                 status_message, sencode, are_we_there_yet, plugin_loaded
     from internals import translationunitcache
     from internals.parsehelp import parsehelp
     plugin_loaded()
-except:
+else:
+    # Python 3
     import queue as Queue
     from .internals.clang import cindex
     from .errormarkers import clear_error_marks, add_error_mark, show_error_marks, \
